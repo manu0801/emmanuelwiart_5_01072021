@@ -1,0 +1,22 @@
+{
+  "name": "projet-5",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manu0801/emmanuelwiart_5_01072021.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/manu0801/emmanuelwiart_5_01072021/issues"
+  },
+  "homepage": "https://github.com/manu0801/emmanuelwiart_5_01072021#readme",
+  "dependencies": {
+    "bootstrap": "^5.0.2"
+  }
+}
