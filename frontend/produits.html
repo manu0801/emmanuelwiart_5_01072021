@@ -6,42 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!--bootstrap css-->
-    <link rel="stylesheet" href="css/style.css" />
+    
+    <link rel="stylesheet" href="scss/style.css" />
 
 
     <title>Produits</title>
 </head>
 <body>
+
+    <!--header-->
     <div class="container">
         <div class="row">
             <nav class="col navbar navbar-expand-lg navbar-dark">
                 <a class="navbar-brand" href="index.html">
-                    <img src="images/logo orinoco.jpg" width="200" height="100" alt="Info logo">
-                        orinoco</a>
+                    <img src="images/logo orinoco.jpg" width="200" height="100" alt="Info logo"></a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>  
                     </button>
                     <div id="navbarContent" class="collapse navbar-collapse">
                         <ul class="navbar-nav">
                             <li class="nav-item active">
-                                <a class="nav-link" href="Acceuil.html">Accueil</a>
+                                <a class="nav-link text-body" href="Acceuil.html">Accueil</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="panier.html">Panier</a>
+                                <a class="nav-link text-body" href="panier.html">Panier</a>
                             </li>
                         </ul>
                     </div>                
             </nav>
         </div>
-    </div>   
+    </div> 
+    
+    <!--produit a afficher-->
 <div class="container">    
-    <div class="row my-5"> 
-               
-        <div class="card p-3 border-light shadow">        
-            <div class="col-12 col-lg-6 align-self-center">
+    <div class="row p-5"> 
+        <div class="col-12 card p-3 border-light shadow flex-row">       
+                
+            <div class="col-6">
                 <img src="images/vcam_1.jpg" alt="appareil photo 1" class="card-img-top">            
             </div>
-              <div class="col-12 col-lg-6 align-self-center">      
+              <div class="col-6">      
                 <div class="card-body">                    
                     <h5 class="card-title">Norbert</h5>
                     <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -50,12 +54,14 @@
                      <a href="panier.html" class="btn btn-primary">Ajouter au panier</a>
                 </div>       
             </div>
-         
-    </div>
+         </div>
+    
     </div>
 </div>
+
+<!--footer-->
 <div class="container">
-    <div class="row">
+    <div class="row mb-5 py-5">
     <div class="col">
         <ul class="list-inline text-center">
         <li class="list-inline-item"><a href="#">À propos</a></li>

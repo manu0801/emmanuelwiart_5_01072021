@@ -5,43 +5,43 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!--bootstrap css-->
-    <link rel="stylesheet" href="css/style.css" />
+    <!--bootstrap css-->   
+    <link rel="stylesheet" href="scss/style.css" />
 
 
     <title>Panier</title>
 </head>
 <body>
-    
+    <!--header-->
     <div class="container">
         <div class="row">
             <nav class="col navbar navbar-expand-lg navbar-dark">
                 <a class="navbar-brand" href="index.html">
-                    <img src="images/logo orinoco.jpg" width="200" height="100" alt="Info logo">
-                    orinoco</a>
+                    <img src="images/logo orinoco.jpg" width="200" height="100" alt="Info logo"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>  
                 </button>
                 <div id="navbarContent" class="collapse navbar-collapse">
                     <ul class="navbar-nav">
                         <li class="nav-item active">
-                            <a class="nav-link" href="Acceuil.html">Accueil</a>
+                            <a class="nav-link text-body" href="Acceuil.html">Accueil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="panier.html">Panier</a>
+                            <a class="nav-link text-body" href="panier.html">Panier</a>
                         </li>
                     </ul>
                 </div>                
             </nav>
         </div>
     </div>
+
+    <!--formulaire info client-->
     <div class="container">
-        <div class="row">
+        <div class="row p-5">
             <div class="col">
                 <hr>
                 <h3>Passez votre commande</h3>
-                <form>
-                  
+                <form>                  
         <div class="row">
             <div class="col">
                 <div class="form-group">
@@ -63,7 +63,7 @@
                     <input type="text" class="form-control" id="address" required>
                 </div>
             </div>
-        </div>
+        </div>        
         <div class="row">
             <div class="col">
                   <div class="form-group">
@@ -86,7 +86,7 @@
                   </div>
             </div>
         </div>
-        <div class="row mt-3">
+        <div class="row mt-5">
             <div class="col">
                   <button type="submit" class="btn btn-primary">Commander</button>  
             </div>
@@ -94,9 +94,11 @@
                 </form>
             </div>
         </div>
-    </div>   
+    </div> 
+    
+    <!--footer-->
     <div class="container">
-        <div class="row">
+        <div class="row mb-5 py-5">
         <div class="col">
             <ul class="list-inline text-center">
             <li class="list-inline-item"><a href="#">À propos</a></li>
