@@ -42,7 +42,7 @@ function createCard(img_url) {
     cardDiv.appendChild(cardBodyDiv);
     let cardTitle = createH5("card-title", "Norbert");
     cardBodyDiv.appendChild(cardTitle);
-    let cardContent = createP("car-text", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ea sapiente tempora placeat illum odio quam voluptas tempore. Officiis ipsam ipsum, dignissimos eius deserunt numquam esse illo minima ut porro." );
+    let cardContent = createP("card-text", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ea sapiente tempora placeat illum odio quam voluptas tempore. Officiis ipsam ipsum, dignissimos eius deserunt numquam esse illo minima ut porro." );
     cardBodyDiv.appendChild(cardContent);
     let link = document.createElement("a");
     link.className = "stretched-link";
@@ -52,8 +52,24 @@ function createCard(img_url) {
 }
 
 /*boucle d'affichage des 5 cartes*/
-for (let i = 0; i < 5; i++) {
-    let mainDiv = createCard("https://th.bing.com/th/id/R.dfafe65de2c08badd9c79c5677dead38?rik=iUHS7nx4B9TmhQ&pid=ImgRaw");
-    var container = document.querySelector('#injectHere');
-    container.appendChild(mainDiv)
-}
+ for (let i = 0; i < 5; i++) {
+            let mainDiv = createCard("https://th.bing.com/th/id/R.dfafe65de2c08badd9c79c5677dead38?rik=iUHS7nx4B9TmhQ&pid=ImgRaw");
+            var container = document.querySelector('#injectHere');
+            container.appendChild(mainDiv)
+        }    
+
+
+
+// fetch('http://localhost:3000/api/teddies')
+//     .then(res => res.json())
+//     .then(data => console.log(data))
+
+fetch('http://localhost:3000/api/teddies')
+    .then( function(res) {
+    return res.json()
+    })
+    .then( function(data) {
+    	// s'exécute une fois que la requête est résolue
+    
+    console.log(data)
+    })
