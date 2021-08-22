@@ -5,10 +5,9 @@ fetch('http://localhost:3000/api/teddies')
         .then( function(data){ 
             let produits = data;
             // console.log(produits);
-            let toto = document.querySelector('#injectHere');
+            let affichage = document.querySelector('#injectHere');
 
             for (let i = 0; i < 5; i++) {            
-                // let mainDiv = card();
                 let card = document.createElement("div");
                 card.className = "col-12 col-lg-4"; 
                 // console.log(card)
@@ -22,20 +21,20 @@ fetch('http://localhost:3000/api/teddies')
                 let image = document.createElement("div");
                 image.className = "card mt-4 mb-lg-0 p-3 border-light shadow";
                 card.appendChild(image);
-                console.log(image)
+                // console.log(image)
     
                 let link = document.createElement("a");
                 link.className = "stretched-link";
-                link.href = "#";
+                link.href = `produits.html?id=${produits[i]._id}`;
                 image.appendChild(link);
-                // console.log(link) 
+                // console.log(link)  
     
                 let img = document.createElement("img");
                 img.src = produits[i].imageUrl;
                 img.alt = "teddies";
                 img.className = "card-img-top";
                 image.appendChild(img);
-                console.log(img)
+                // console.log(img)
                 
                 let description = document.createElement("div");
                 description.className = "card-body";
@@ -50,8 +49,9 @@ fetch('http://localhost:3000/api/teddies')
                 
                 let cardPrice = document.createElement("h6");
                 cardPrice.className = "price";
-                
-                cardPrice.innerHTML = produits[i].price;
+                produits[i].price = produits[i].price / 100;
+                cardPrice.innerHTML = new Intl.NumberFormat("fr-FR", {style: "currency", currency: "EUR"})
+                .format(produits[i].price);
                 description.appendChild(cardPrice);
                     // console.log(cardPrice)
                 
@@ -60,7 +60,7 @@ fetch('http://localhost:3000/api/teddies')
                 cardContent.innerHTML = "Disponible en différentes versions.....<br>Cliquez pour plus d'information";
                 description.appendChild(cardContent);
                     // console.log(cardContent) 
-                toto.appendChild(card);   
+                affichage.appendChild(card);   
             }
             console.log(produits);
 

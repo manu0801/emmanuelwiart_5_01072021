@@ -1,59 +1,82 @@
-/*fiche produits*/
+let urlSearchParams = new URLSearchParams(document.location.search);
+    // console.log(urlSearchParams)
 
-function createDiv(classes) {
-    let div = document.createElement("div");
-    div.className = classes;
-    return div;
-}
-function createImg(src, alt, classes) {
-    let img = document.createElement("img");
-        img.src = src;
-        img.alt = alt;
-        img.className = classes;
-        return img;
-}
-function createH5(classes, content) {
-    let cardTitle = document.createElement("h5");
-        cardTitle.className = classes;
-        cardTitle.innerHTML = content;
-        return cardTitle;
-}
-function createP(classes, content) {
-    let cardContent = document.createElement("p");
-        cardContent.className = classes;
-        cardContent.innerHTML = content;
-        return cardContent;
-}
+let id = urlSearchParams.get("id")
+    // console.log(id)
 
-function createButton(classes, content) {
-    let link = document.createElement("a");
-        link.className = classes;
-        link.innerHTML = content;
-        return link;
-}
+fetch(`http://localhost:3000/api/teddies/${id}`)
+        .then( function(res) {
+            return res.json()            
+        })         
+        .then( function(data){ 
+            let produits = data;
+            // console.log(produits);
+            let affichage = document.querySelector('#ficheProduit');
+                // console.log(affichage)
 
-function createCard(img_url) {
-    let mainDiv = createDiv("col-12 col-lg-12");
-    let cardDiv = createDiv("card p-3 border-light shadow flex-row");
-    mainDiv.appendChild(cardDiv);
-    let cardImg = createDiv("col-6");
-    cardDiv.appendChild(cardImg)
-    let img = createImg(img_url, "appareil photo 2", "card-img-top");
-    cardImg.appendChild(img);
-    let cardBody = createDiv("card-body");
-    cardDiv.appendChild(cardBody);
-    let cardTitle = createH5("card-title", "Norbert");
-    cardBody.appendChild(cardTitle);
-    let cardContent = createP("card-text", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ea sapiente tempora placeat illum odio quam voluptas tempore. Officiis ipsam ipsum, dignissimos eius deserunt numquam esse illo minima ut porro.");
-    cardBody.appendChild(cardContent);
-    let link = createButton("a", "Ajouter au panier");
-    link.className = "btn btn-primary";
-    link.href = "#";
-    cardBody.appendChild(link);
-    return mainDiv;
-}
-for (let i = 0; i < 1; i++) {
-    let mainDiv = createCard("https://th.bing.com/th/id/R.dfafe65de2c08badd9c79c5677dead38?rik=iUHS7nx4B9TmhQ&pid=ImgRaw");
-    var container = document.querySelector('#ficheProduit');
-    container.appendChild(mainDiv);
-}
+            // for (let i = 0; i < 5; i++) {            
+                let card = document.createElement("div");
+                card.className = "col-12 col-lg-12"; 
+                // console.log(card)
+    
+                let container = document.createElement("div")
+                container.className = "row p5";
+                container.appendChild(card);        
+                // console.log(container)
+        
+                let image = document.createElement("div");
+                image.className = "card p-3 border-light shadow flex-row";
+                card.appendChild(image);
+                // console.log(image)
+
+                let containerImg = document.createElement("div");
+                containerImg.className = "col-6";
+                image.appendChild(containerImg);
+                // console.log(containerImg)
+
+                let img = document.createElement("img");
+                img.src = `${produits.imageUrl}`;
+                img.alt = "teddies";
+                img.className = "card-img-top";
+                containerImg.appendChild(img);
+                // console.log(img);
+
+                let description = document.createElement("div");
+                description.className = "card-body";
+                image.appendChild(description);
+                // console.log(description)
+
+                let cardTitle = document.createElement("h5");
+                cardTitle.className = "card-title";
+                cardTitle.innerHTML = `${produits.name}`;
+                description.appendChild(cardTitle);
+                // console.log(cardTitle)
+
+                let cardContent = document.createElement("p");
+                cardContent.className = "card-text";
+                cardContent.innerHTML = `${produits.description}`;
+                description.appendChild(cardContent);
+                // console.log(cardContent)
+
+
+                let cardPrice = document.createElement("h6");
+                cardPrice.className = "price";                 
+                cardPrice.innerHTML = `${produits.price}`;                                
+                description.appendChild(cardPrice);
+                    
+    
+                let link = document.createElement("a");
+                link.className = "btn btn-primary";
+                link.href = "panier.html";
+                link.innerText = "Ajoutez au panier";
+                description.appendChild(link);
+                // console.log(link) 
+    
+                affichage.appendChild(card);   
+            // }
+            // console.log(produits);
+
+        })        
+        .catch(function(error)  {
+            alert("Nos nounours ne sont pas encore prets. Revenez plus tard.");        
+        })
