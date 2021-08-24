@@ -16,7 +16,7 @@ fetch(`http://localhost:3000/api/teddies/${id}`)
 
             // for (let i = 0; i < 5; i++) {            
                 let card = document.createElement("div");
-                card.className = "col-12 col-lg-12"; 
+                card.className = "col-12 col-lg-6"; 
                 // console.log(card)
     
                 let container = document.createElement("div")
@@ -25,19 +25,19 @@ fetch(`http://localhost:3000/api/teddies/${id}`)
                 // console.log(container)
         
                 let image = document.createElement("div");
-                image.className = "card p-3 border-light shadow flex-row";
+                image.className = "card p-3 border-light shadow";
                 card.appendChild(image);
                 // console.log(image)
 
                 let containerImg = document.createElement("div");
-                containerImg.className = "col-6";
+                containerImg.className = "col-12";
                 image.appendChild(containerImg);
                 // console.log(containerImg)
 
                 let img = document.createElement("img");
                 img.src = `${produits.imageUrl}`;
                 img.alt = "teddies";
-                img.className = "card-img-top";
+                img.className = "imgProduit";
                 containerImg.appendChild(img);
                 // console.log(img);
 
@@ -58,22 +58,35 @@ fetch(`http://localhost:3000/api/teddies/${id}`)
                 description.appendChild(cardContent);
                 // console.log(cardContent)
 
-
                 let cardPrice = document.createElement("h6");
                 cardPrice.className = "price";                 
-                cardPrice.innerHTML = `${produits.price}`;                                
-                description.appendChild(cardPrice);
-                    
+                cardPrice.innerHTML = `${produits.price / 100}.00 €`;                                
+                description.appendChild(cardPrice);                    
     
                 let link = document.createElement("a");
                 link.className = "btn btn-primary";
                 link.href = "panier.html";
                 link.innerText = "Ajoutez au panier";
                 description.appendChild(link);
-                // console.log(link) 
-    
+                // console.log(link)
+
+                        // debut du choix
+                let colorSelect = document.getElementById("color-select");
+                description.appendChild(colorSelect);           
+                
+                let optionColors = produits.colors;                
+                
+                for (var j = 0; j < optionColors.length; j++){
+                    let option = document.createElement("option");
+                    option.value = optionColors[j];
+                    option.text = optionColors[j];
+                    colorSelect.appendChild(option);
+
+                    console.log(optionColors[j]);
+                }           
+
                 affichage.appendChild(card);   
-            // }
+            
             // console.log(produits);
 
         })        
