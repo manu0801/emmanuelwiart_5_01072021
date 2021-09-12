@@ -41,13 +41,13 @@ fetch('http://localhost:3000/api/teddies')
                 image.appendChild(description);
                     // console.log(description)
                 
-                let cardTitle = document.createElement("h5");
+                let cardTitle = document.createElement("h2");
                 cardTitle.className = "card-title";
                 cardTitle.innerHTML = produits[i].name;
                 description.appendChild(cardTitle);
                     // console.log(cardTitle)
                 
-                let cardPrice = document.createElement("h6");
+                let cardPrice = document.createElement("h4");
                 cardPrice.className = "price";
                 produits[i].price = produits[i].price / 100;
                 cardPrice.innerHTML = new Intl.NumberFormat("fr-FR", {style: "currency", currency: "EUR"})

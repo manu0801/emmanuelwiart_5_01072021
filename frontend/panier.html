@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,9 +8,12 @@
     <!--bootstrap css-->   
     <link rel="stylesheet" href="scss/style.css" />
 
-
+    <!--javascript-->    
+    <script src="panier.js" defer></script>
+   
     <title>Panier</title>
 </head>
+
 <body>
     <!--header-->
     <div class="container">
@@ -34,94 +37,135 @@
             </nav>
         </div>
     </div>
-
     <!--bon de commande-->
-    <div class="container">
-            <div class="row p-3">
-                <h3>Votre commande</h3>
-                <table class="table table-bordered border-dark my-3">
-                    <thead>
+    <main>
+        <div class="container">            
+            <div class="row p-5" id="affichagePanier">
+                <!-- <table class="table table-dark table-striped" id="tableauPanier"> -->
+                    <!-- <thead>
                         <tr>
-                            <th scope="col">Produit</th>
+                            <th scope="col">Nom du nounours</th>
+                            <th scope="col">Quantité</th>
                             <th scope="col">Prix unitaire</th>
-                            <th scope="col">Quantité</th>                                                        
-                            <th scope="col">Total à payer</th>
+                            <th scope="col">Sous total</th>
+                            <th scope="col">Ajouter/supprimer</th>
                         </tr>
-                    </thead>
-                    <tbody>
+                    </thead> -->
+                    <!-- <tbody>
                         <tr>
-                            <td> Norbert</td>
-                            <td>29€</td>
-                            <td>1</td>                            
-                            <td>34€</td>
+                            <th class="nom">Norbert</th>
+                            <th class="quantite">2</th>
+                            <th class="pu">29€</th>
+                            <th class="pt">58€</th>
+                            <th class="ajoutSuppr">
+                                <button type="button" class="btn btn-light">+1</button>
+                                <button type="button" class="btn btn-light">- 1</button>
+                            </th>
                         </tr>
-                    </tbody>
-                </table>
-            </div>
+                        <tr>
+                            <th>Arnold</th>
+                            <th>1</th>
+                            <th>39€</th>
+                            <th>39€</th>
+                            <th>
+                                <button type="button" class="btn btn-light">+1</button>
+                                <button type="button" class="btn btn-light">- 1</button>
+                            </th>                            
+                        </tr>
+                        <tr>                            
+                            <th>Lenny and Carl</th>
+                            <th>1</th>
+                            <th>59€</th>
+                            <th>59€</th>
+                            <th>
+                                <button type="button" class="btn btn-light">+1</button>
+                                <button type="button" class="btn btn-light">- 1</button>
+                            </th>                            
+                        </tr>
+                        <tr>
+                            <th>Gustav</th>
+                            <th>1</th>
+                            <th>45€</th>
+                            <th>45€</th>
+                            <th>
+                                <button type="button" class="btn btn-light">+1</button>
+                                <button type="button" class="btn btn-light">- 1</button>
+                            </th>                            
+                        </tr>
+                    </tbody> -->
+                    <!-- <tfoot>
+                    <th>Total de votre commande</th>
+                    <th></th>
+                    <th></th>
+                    <th>201€</th>
+                    <th><button type="button" class="btn btn-light">vider le panier</button></th>
+
+                    </tfoot>
+                </table> -->
+                
+            </div> 
         </div>
-
-
     <!--formulaire info client-->
-    <div class="container">
-        <div class="row p-5">
-            <div class="col">
-                <hr>
-                <h3>Vos coordonnées</h3>
-                <form>                  
-        <div class="row">
-            <div class="col">
-                <div class="form-group">
-                    <label for="name">Nom</label>
-                    <input type="text" class="form-control" id="name" required>
+        <div class="container">
+            <div class="row p-5">
+                <div class="col">
+                    <hr>
+                    <h3>Vos coordonnées</h3>
+                    <form>                  
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="name"></label>
+                        <input type="text" class="form-control" placeholder="Nom" id="name" required>
+                    </div>
+                </div>
+                <div class="col">     
+                    <div class="form-group">  
+                        <label for="firstname"></label>
+                        <input type="text" class="form-control" placeholder="Prénom" id="firstname" required>
+                    </div>
+                </div>                 
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="address"></label>
+                        <input type="text" class="form-control" placeholder="Adresse"  id="address" required>
+                    </div>
+                </div>
+            </div>        
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="zipcode"></label>
+                        <input type="text" class="form-control" placeholder="Code Postal" id="zipcode" required>
+                    </div>
+                </div>
+                <div class="col">  
+                    <div class="form-group">
+                        <label for="city"></label>
+                        <input type="text" class="form-control" placeholder="Ville" id="city" required>
+                    </div>
                 </div>
             </div>
-            <div class="col">     
-                <div class="form-group">  
-                    <label for="firstname">Prénom</label>
-                    <input type="text" class="form-control" id="firstname" required>
-                </div>
-            </div>                 
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="form-group">
-                    <label for="address">Adresse</label>
-                    <input type="text" class="form-control" id="address" required>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="emailadress"></label>
+                        <input type="email" class="form-control" placeholder="Adresse Mail" id="emailadress" required>
+                    </div>
                 </div>
             </div>
-        </div>        
-        <div class="row">
-            <div class="col">
-                <div class="form-group">
-                    <label for="zipcode">Code postal</label>
-                    <input type="text" class="form-control" id="zipcode" required>
+            <div class="row mt-5">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Commander</button>  
                 </div>
             </div>
-            <div class="col">  
-                <div class="form-group">
-                    <label for="city">Ville</label>
-                    <input type="text" class="form-control" id="city" required>
+                    </form>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="form-group">
-                    <label for="emailadress">Adresse Mail</label>
-                    <input type="email" class="form-control" id="emailadress" required>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col">
-                <button type="submit" class="btn btn-primary">Commander</button>  
-            </div>
-        </div>
-                </form>
-            </div>
-        </div>
-    </div> 
-    
+        </div> 
+    </main>    
     <!--footer-->
     <div class="container">
         <div class="row mb-5 py-5">

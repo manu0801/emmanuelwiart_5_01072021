@@ -1,7 +1,7 @@
 let urlSearchParams = new URLSearchParams(document.location.search);
     // console.log(urlSearchParams)
 
-let id = urlSearchParams.get("id")
+var id = urlSearchParams.get("id")
     // console.log(id)
 
 fetch(`http://localhost:3000/api/teddies/${id}`)
@@ -10,11 +10,11 @@ fetch(`http://localhost:3000/api/teddies/${id}`)
         })         
         .then( function(data){ 
             let produits = data;
-            // console.log(produits);
-            let affichage = document.querySelector('#ficheProduit');
-                // console.log(affichage)
+            // console.log(id);
 
-            // for (let i = 0; i < 5; i++) {            
+            let affichage = document.querySelector('#ficheProduit');
+                console.log(affichage)
+
                 let card = document.createElement("div");
                 card.className = "col-12 col-lg-6"; 
                 // console.log(card)
@@ -46,7 +46,7 @@ fetch(`http://localhost:3000/api/teddies/${id}`)
                 image.appendChild(description);
                 // console.log(description)
 
-                let cardTitle = document.createElement("h5");
+                let cardTitle = document.createElement("h2");
                 cardTitle.className = "card-title";
                 cardTitle.innerHTML = `${produits.name}`;
                 description.appendChild(cardTitle);
@@ -58,38 +58,72 @@ fetch(`http://localhost:3000/api/teddies/${id}`)
                 description.appendChild(cardContent);
                 // console.log(cardContent)
 
-                let cardPrice = document.createElement("h6");
+                let cardPrice = document.createElement("h3");
                 cardPrice.className = "price";                 
-                cardPrice.innerHTML = `${produits.price / 100}.00 €`;                                
-                description.appendChild(cardPrice);                    
-    
-                let link = document.createElement("a");
-                link.className = "btn btn-primary";
-                link.href = "panier.html";
-                link.innerText = "Ajoutez au panier";
-                description.appendChild(link);
-                // console.log(link)
+                cardPrice.innerHTML = `${produits.price / 100}€`;                                
+                description.appendChild(cardPrice); 
+                // console.log(cardPrice)
 
-                        // debut du choix
+                let link = document.createElement("input");
+                link.className = "btn btn-primary";
+                link.type = "submit";
+                link.value = "Ajoutez au panier";
+                description.appendChild(link);                
+                // console.log(link)            
+
+            link.addEventListener("click", function(){
+
+                let panier = JSON.parse(localStorage.getItem("produit"));
+                
+                    // ------------fenetre de confirmation panier-----------
+                const popupConfirmation = () =>{
+                    if(window.confirm(`${produits.name} au prix de ${produits.price / 100} € a bien été ajouté au panier.
+                    Consultez le panier OK ou continuez vos achats ANNULER`)){
+                        window.location.href = "panier.html";
+                    }else{
+                        window.location.href = "acceuil.html";
+                    }
+                }
+                if(panier){                    
+                    if(panier[id]){
+                        panier[id]++;  
+                    }
+                    else{
+                        panier[id] = 1;
+                    }
+                    // panier.push(optionProduit);
+                    localStorage.setItem("produit", JSON.stringify(panier));
+                    console.log(panier);
+                    popupConfirmation();
+                }
+                else{
+                    panier = {};
+                    panier[id] = 1;
+                    localStorage.setItem("produit", JSON.stringify(panier));
+                    console.log(panier); 
+                    popupConfirmation();               
+                }                                 
+            })         
+                //----------- debut du choix-----------
+                
                 let colorSelect = document.getElementById("color-select");
                 description.appendChild(colorSelect);           
                 
                 let optionColors = produits.colors;                
                 
-                for (var j = 0; j < optionColors.length; j++){
+                for (let j = 0; j < optionColors.length; j++){
                     let option = document.createElement("option");
                     option.value = optionColors[j];
                     option.text = optionColors[j];
                     colorSelect.appendChild(option);
 
-                    console.log(optionColors[j]);
-                }           
-
-                affichage.appendChild(card);   
+                // console.log(optionColors[j]);
+                }  
+                affichage.appendChild(card);                
             
-            // console.log(produits);
-
-        })        
+                })        
         .catch(function(error)  {
             alert("Nos nounours ne sont pas encore prets. Revenez plus tard.");        
         })
+
+     
