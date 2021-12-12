@@ -36,6 +36,7 @@ exports.getOneTeddy = (req, res, next) => {
 /**
  *
  * Expects request to contain:
+ * {
  * contact: {
  *   firstName: string,
  *   lastName: string,
@@ -44,7 +45,7 @@ exports.getOneTeddy = (req, res, next) => {
  *   email: string
  * }
  * products: [string] <-- array of product _id
- *
+ * }
  */
 exports.orderTeddies = (req, res, next) => {
   if (!req.body.contact ||

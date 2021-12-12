@@ -93,14 +93,12 @@ fetch(`http://localhost:3000/api/teddies/${id}`)
                     }
                     // panier.push(optionProduit);
                     localStorage.setItem("produit", JSON.stringify(panier));
-                    console.log(panier);
                     popupConfirmation();
                 }
                 else{
                     panier = {};
                     panier[id] = 1;
                     localStorage.setItem("produit", JSON.stringify(panier));
-                    console.log(panier); 
                     popupConfirmation();               
                 }                                 
             })         

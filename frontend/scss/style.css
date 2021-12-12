@@ -11552,4 +11552,16 @@ fieldset:disabled .btn {
 .price {
   text-align: center;
 }
+
+.btn-light {
+  margin-right: 4px;
+}
+
+th {
+  text-align: center;
+}
+
+td {
+  text-align: center;
+}
 /*# sourceMappingURL=style.css.map */
