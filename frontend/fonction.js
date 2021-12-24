@@ -32,40 +32,32 @@ function print_total(total){
 function ajouter(){
     // se declenche lors du click => ok
     // prends l'id du produit selectionné
-    let id = this.closest("tr").className; 
-    console.log(id);   
+    let id = this.closest("tr").className;       
     // recuperer la quantite de l'id du produits dans le ls
     let p = JSON.parse(localStorage.getItem("produit"));    
-    console.log(p[id]);
     // modifier la quantite de cet id
-    p[id]++;
-    console.log(p[id]);
+    p[id]++;    
     // mettre a jour le LS
     localStorage.setItem("produit", JSON.stringify(p));
     // mettre a jour la quantité dans la ligne du tableau
     let quantite = this.closest("tr").querySelector(".quantite");
     quantite.innerHTML = p[id];
     // recalculer
-    calculate();
-    // console.trace("ajouter");
+    calculate();    
 }
-function supprimer(){
+function supprimer() {
     // se declenche lors du click => ok
     // prends l'id du produit selectionné
     let id = this.closest("tr").className; 
-    console.log(id);   
     // recuperer la quantite de l'id du produits dans le ls
-    let p = JSON.parse(localStorage.getItem("produit"));    
-    console.log(p[id]);    
+    let p = JSON.parse(localStorage.getItem("produit"));     
     // modifier la quantite de cet id
-    p[id]--;
-    console.log(p[id]);
+    p[id]--;    
     // verifier la quantité du LS et si qte a 0 supprimer l'id
     if(p[id]==0){
         // enlever element id du p
         delete p[id];
-        localStorage.setItem("produit", JSON.stringify(p));
-        
+        localStorage.setItem("produit", JSON.stringify(p));        
         // enlever l'affichage de la ligne du tableau
         this.closest("tr").remove();
         calculate();
@@ -78,7 +70,6 @@ function supprimer(){
     quantite.innerHTML = p[id];
     // recalculer
     calculate();
-    console.log("supprimer"); 
     }
 }
 // -----fonctions de création du tableau panier
@@ -87,7 +78,6 @@ function createTable(){
 
     let tableau = create_tableau("table table-dark table-striped");
     container.appendChild(tableau);
-    // console.log(tableau);
 
     let enTeteTableau = document.createElement("tHead");
     tableau.appendChild(enTeteTableau);
@@ -115,14 +105,14 @@ function createTable(){
     ajouterSupprimer.innerHTML = "Ajouter/Supprimer";
     intitule.appendChild(ajouterSupprimer);
 
-    var corpsTableau = document.createElement("tbody");
+    var corpsTableau = create_tbody();
     tableau.appendChild(corpsTableau);
 }
 function createPiedTableau(){
-    let piedTableau = document.createElement("tfoot");
+    let piedTableau = create_tfoot();
     tableau.appendChild(piedTableau);
 
-    let ligneTotal = document.createElement("tr");
+    let ligneTotal = create_tr();
     piedTableau.appendChild(ligneTotal);        
 
     let caseVide1 = create_th();
@@ -138,12 +128,30 @@ function createPiedTableau(){
     let resultatPrix = create_th();
     resultatPrix.setAttribute("id", "total");
     ligneTotal.appendChild(resultatPrix);
-    // console.log(tableau, affichage)
 
     affichage.appendChild(tableau);   
 }
 // ------fonctions de création du formulaire
-
+function create_tbody(className){
+    let tbody = document.createElement("tbody");
+    tbody.className = className;
+    return tbody;
+}
+function create_tfoot(className){
+    let tfoot = document.createElement("tfoot");
+    tfoot.className = className;
+    return tfoot;
+}
+function create_tHead(className){
+    let tHead = document.createElement("tHead");
+    tHead.className = className;
+    return tHead;
+}
+function create_tr(className){
+    let tr = document.createElement("tr");
+    tr.className = className;
+    return tr;
+}
 function create_td(className) {
     let td = document.createElement("td");
     td.className = className;
@@ -154,10 +162,45 @@ function create_button(className) {
     button.className = className;
     return button;
 }
+function create_img(className) {
+    let img = document.createElement("img");
+    img.className = className;
+    return img;
+}
 function create_div(className) {
     let div = document.createElement("div");
     div.className = className;
     return div;
+}
+function create_a(className){
+    let a = document.createElement("a");
+    a.className = className;
+    return a;
+}
+function create_h2(className){
+    let h2 = document.createElement("h2");
+    h2.className = className;
+    return h2;
+}
+function create_h3(className){
+    let h3 = document.createElement("h3");
+    h3.className = className;
+    return h3;
+}
+function create_h4(className){
+    let h4 = document.createElement("h4");
+    h4.className = className;
+    return h4;
+}
+function create_hr(className){
+    let hr = document.createElement("hr");
+    hr.className = className;
+    return hr;
+}
+function create_p(className){
+    let p = document.createElement("p");
+    p.className = className;
+    return p;    
 }
 function create_input(className) {
     let input = document.createElement("input");
@@ -179,7 +222,11 @@ function create_label(setAttribute){
     label.setAttribute = setAttribute;
     return label
 }
-function createFormulaireClient(){
+function create_form(className){
+    let form = document.createElement("form");
+    return form;
+}
+function createCustomerForm(){
     let formulaireGlobal = create_div("container");
 
     let containerFormulaire = create_div("row p-5");
@@ -188,19 +235,19 @@ function createFormulaireClient(){
     let titre = create_div("col");
     containerFormulaire.appendChild(titre);
 
-    let hr = document.createElement("hr");
+    let hr = create_hr();
     titre.appendChild(hr)
 
-    let h = document.createElement("h3");
+    let h = create_h3();
     h.innerText = "Vos coordonnées";
     titre.appendChild(h);
 
-    let formulaire = document.createElement("form");
+    let formulaire = create_form();
     containerFormulaire.appendChild(formulaire);
 
     affichage.appendChild(formulaireGlobal); 
 }
-function createInputName() {
+function createInputName(){
     let blockName = create_div("row");
     formulaire.appendChild(blockName);
 
@@ -321,8 +368,7 @@ function createInputMail(){
     inputContainerEmail.appendChild(inputEmail);
 }
 function createOrderButton(){
-    let blockBtn = document.createElement("div");
-    blockBtn.className = "row mt-5";
+    let blockBtn = create_div("row mt-5");
     formulaire.appendChild(blockBtn);
 
     let colBtn = create_div("col");
@@ -336,13 +382,11 @@ function createOrderButton(){
 }
 // ------fonction pour envoyer les données à l'API
 function envoyerDonnees(){
-    // recuperation du bouton envoyer
-    const btnEnvoyer = document.querySelector("#btnEnvoyer");
-    
+// recuperation du bouton envoyer
+    const btnEnvoyer = document.querySelector("#btnEnvoyer");    
 // se declenche lors du clik sur commander
     btnEnvoyer.addEventListener("click", (e)=>{
     e.preventDefault();
-
     const valeursFormulaire = {
         lastName : document.querySelector("#name").value,
         firstName : document.querySelector("#firstname").value,
@@ -351,31 +395,31 @@ function envoyerDonnees(){
         email : document.querySelector("#emailadress").value,       
     }
     localStorage.setItem("valeursFormulaire", JSON.stringify(valeursFormulaire));
-
     let produitsEnvoie = [];
     var panier = JSON.parse(localStorage.getItem("produit"));
     for(var key in panier){
         produitsEnvoie.push(key);
-        // console.log(products_to_send)
     }
     // mettre les produits du LS et l'objet du formulaire dans un objet a envoyer
     const aEnvoyer = {        
         contact: valeursFormulaire,
         products: produitsEnvoie,        
     }
-    console.log(aEnvoyer)
     // ------------envoie--------
-    fetch("http://localhost:3000/api/teddies/order", {
+    const options = {
         method: "POST",
         body: JSON.stringify(aEnvoyer),
         headers: {
             "content-Type" : "application/json"
-        },
+        } 
+    };
+    fetch("http://localhost:3000/api/teddies/order", options)
+    .then((response) => response.json())
+    .then((data) => {
+        localStorage.clear();
+        localStorage.setItem("orderId", data.orderId);
+        document.location.href = "confirmation.html";
     })
-    .then(function(response) {
-        // inserer ici la récuperation du numero de commande
-        console.log(response);
-    });    
 })        
 }
 

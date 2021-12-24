@@ -1,63 +1,58 @@
 //-------fonction-------
-
 function recuperationInfos(key){
-        fetch(`http://localhost:3000/api/teddies/${key}`)
-        .then( function(res) {        
-            return res.json()           
-        })         
-        .then(async function(data){            
-            await insertionInfos(data);
-        })
-    }
-
+    fetch(`http://localhost:3000/api/teddies/${key}`)
+    .then( function(res) {        
+        return res.json()           
+    })         
+    .then(async function(data){            
+        await insertionInfos(data);
+    })
+}
 async function insertionInfos(data){
-        let produits = data; 
-        var panier = JSON.parse(localStorage.getItem("produit"));
-    
-        // fonction de calcul        
+    let produits = data; 
+    var panier = JSON.parse(localStorage.getItem("produit"));    
+    // fonction de calcul        
 
-        document.querySelector("tbody");
+    document.querySelector("tbody");
             
-            let ligneProduit = document.createElement("tr");
-            ligneProduit.className = `${produits._id}`;
-            corpsTableau.appendChild(ligneProduit);            
+    let ligneProduit = create_tr(`${produits._id}`);
+    corpsTableau.appendChild(ligneProduit);            
 
-            let nom = create_td("nom");
-            nom.innerHTML = `${produits.name}`;
-            ligneProduit.appendChild(nom);
+    let nom = create_td("nom");
+    nom.innerHTML = `${produits.name}`;
+    ligneProduit.appendChild(nom);
 
-            let quantiteProduit = create_td("quantite");
-            quantiteProduit.innerHTML = `${panier[produits._id]}`;
-            ligneProduit.appendChild(quantiteProduit);
+    let quantiteProduit = create_td("quantite");
+    quantiteProduit.innerHTML = `${panier[produits._id]}`;
+    ligneProduit.appendChild(quantiteProduit);
 
-            let pu = create_td("pu");
-            pu.innerHTML = `${produits.price / 100}€`;
-            ligneProduit.appendChild(pu);
+    let pu = create_td("pu");
+    pu.innerHTML = `${produits.price / 100}€`;
+    ligneProduit.appendChild(pu);
 
-            let pt = create_td("pt"); 
-            ligneProduit.appendChild(pt);
+    let pt = create_td("pt"); 
+    ligneProduit.appendChild(pt);
 
-            let ajoutSuppr = create_td("ajoutSuppr");
-            ligneProduit.appendChild(ajoutSuppr); 
+    let ajoutSuppr = create_td("ajoutSuppr");
+    ligneProduit.appendChild(ajoutSuppr); 
             
-            let ajout = create_button("btn btn-light");
-            ajout.innerHTML = "+1"; 
-            ajout.addEventListener('click', ajouter);           
-            ajoutSuppr.appendChild(ajout); 
+    let ajout = create_button("btn btn-light");
+    ajout.innerHTML = "+1"; 
+    ajout.addEventListener('click', ajouter);           
+    ajoutSuppr.appendChild(ajout); 
             
-            let suppr = create_button("btn btn-light");
-            suppr.innerHTML = "- 1";
-            suppr.addEventListener('click', supprimer)
-            ajoutSuppr.appendChild(suppr); 
+    let suppr = create_button("btn btn-light");
+    suppr.innerHTML = "- 1";
+    suppr.addEventListener('click', supprimer)
+    ajoutSuppr.appendChild(suppr); 
             
-            calculate();
-            
+    calculate();            
 }
 var panier = JSON.parse(localStorage.getItem("produit"));
 if(panier === null){
-    // console.log("je suis vide");
+    var affichage = document.querySelector("#affichagePanier");
+    affichage.innerHTML = "votre panier est vide"
 } else{
-
     var affichage = document.querySelector("#affichagePanier");       
 // createTable()
     let container = create_div("row p-5");
@@ -66,10 +61,10 @@ if(panier === null){
     container.appendChild(tableau);
     // console.log(tableau);
 
-    let enTeteTableau = document.createElement("tHead");
+    let enTeteTableau = create_tHead();
     tableau.appendChild(enTeteTableau);
     
-    let intitule = document.createElement("tr")
+    let intitule = create_tr();
     enTeteTableau.appendChild(intitule);
 
     let nomDuNounours = create_th("col");
@@ -92,7 +87,7 @@ if(panier === null){
     ajouterSupprimer.innerHTML = "Ajouter/Supprimer";
     intitule.appendChild(ajouterSupprimer);
 
-    var corpsTableau = document.createElement("tbody");
+    var corpsTableau = create_tbody();
     tableau.appendChild(corpsTableau);        
     
     for (var key in panier) {        
@@ -100,10 +95,10 @@ if(panier === null){
     }        
     //---------pied du tableau panier
     // createPiedTableau()
-    let piedTableau = document.createElement("tfoot");
+    let piedTableau = create_tfoot();
     tableau.appendChild(piedTableau);
 
-    let ligneTotal = document.createElement("tr");
+    let ligneTotal = create_tr();
     piedTableau.appendChild(ligneTotal);        
 
     let caseVide1 = create_th();
@@ -119,38 +114,26 @@ if(panier === null){
     let resultatPrix = create_th();
     resultatPrix.setAttribute("id", "total");
     ligneTotal.appendChild(resultatPrix);
-    // console.log(tableau, affichage);
 
     affichage.appendChild(tableau);   
-} 
-
+}
 // --------formulaire et bouton commander
-
 var affichage = document.querySelector("#formulaire");
-
  // formulaire client
-createFormulaireClient()    
-    
+createCustomerForm()   
 // input nom
-createInputName()   
-
+createInputName() 
 // input prenom
-createInputFistname()    
-
+createInputFistname() 
 // input adresse
-createInputAdress()    
-
+createInputAdress()
 // input code postal
-createInputZipcode()    
-
+createInputZipcode()
 // input ville
-createInputCity()    
-
+createInputCity() 
 // input email
-createInputMail()    
-
+createInputMail() 
 // bouton
-createOrderButton()
-    
+createOrderButton()   
 // fonction d'envoi à l'API
 envoyerDonnees()

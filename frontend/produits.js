@@ -1,127 +1,94 @@
 let urlSearchParams = new URLSearchParams(document.location.search);
-    // console.log(urlSearchParams)
-
-var id = urlSearchParams.get("id")
-    // console.log(id)
+var id = urlSearchParams.get("id");
 
 fetch(`http://localhost:3000/api/teddies/${id}`)
-        .then( function(res) {
-            return res.json()            
-        })         
-        .then( function(data){ 
-            let produits = data;
-            // console.log(id);
+.then( function(res) {
+    return res.json()            
+})         
+.then( function(data){ 
+    let produits = data;
 
-            let affichage = document.querySelector('#ficheProduit');
-                console.log(affichage)
+    let affichage = document.querySelector('#ficheProduit');
 
-                let card = document.createElement("div");
-                card.className = "col-12 col-lg-6"; 
-                // console.log(card)
+    let card = create_div("col-12 col-lg-6");
     
-                let container = document.createElement("div")
-                container.className = "row p5";
-                container.appendChild(card);        
-                // console.log(container)
+    let container = create_div("row p5");                
+    container.appendChild(card);        
         
-                let image = document.createElement("div");
-                image.className = "card p-3 border-light shadow";
-                card.appendChild(image);
-                // console.log(image)
+    let image = create_div("card p-3 border-light shadow");                
+    card.appendChild(image);
 
-                let containerImg = document.createElement("div");
-                containerImg.className = "col-12";
-                image.appendChild(containerImg);
-                // console.log(containerImg)
+    let containerImg = create_div("col-12");                
+    image.appendChild(containerImg);
 
-                let img = document.createElement("img");
-                img.src = `${produits.imageUrl}`;
-                img.alt = "teddies";
-                img.className = "imgProduit";
-                containerImg.appendChild(img);
-                // console.log(img);
+    let img = create_img("imgProduit");
+    img.src = `${produits.imageUrl}`;
+    img.alt = "teddies";
+    containerImg.appendChild(img);
 
-                let description = document.createElement("div");
-                description.className = "card-body";
-                image.appendChild(description);
-                // console.log(description)
+    let description = create_div("card-body");                
+    image.appendChild(description);
 
-                let cardTitle = document.createElement("h2");
-                cardTitle.className = "card-title";
-                cardTitle.innerHTML = `${produits.name}`;
-                description.appendChild(cardTitle);
-                // console.log(cardTitle)
+    let cardTitle = create_h2("card-title");
+    cardTitle.innerHTML = `${produits.name}`;
+    description.appendChild(cardTitle);
 
-                let cardContent = document.createElement("p");
-                cardContent.className = "card-text";
-                cardContent.innerHTML = `${produits.description}`;
-                description.appendChild(cardContent);
-                // console.log(cardContent)
+    let cardContent = create_p("card-text")
+    cardContent.innerHTML = `${produits.description}`;
+    description.appendChild(cardContent);
 
-                let cardPrice = document.createElement("h3");
-                cardPrice.className = "price";                 
-                cardPrice.innerHTML = `${produits.price / 100}€`;                                
-                description.appendChild(cardPrice); 
-                // console.log(cardPrice)
+    let cardPrice = create_h3("price");                
+    cardPrice.innerHTML = `${produits.price / 100}€`;                                
+    description.appendChild(cardPrice); 
 
-                let link = document.createElement("input");
-                link.className = "btn btn-primary";
-                link.type = "submit";
-                link.value = "Ajoutez au panier";
-                description.appendChild(link);                
-                // console.log(link)            
+    let link = create_input("btn btn-primary");                
+    link.type = "submit";
+    link.value = "Ajoutez au panier";
+    description.appendChild(link);                        
 
-            link.addEventListener("click", function(){
+    link.addEventListener("click", function(){
 
-                let panier = JSON.parse(localStorage.getItem("produit"));
+        let panier = JSON.parse(localStorage.getItem("produit"));
                 
-                    // ------------fenetre de confirmation panier-----------
-                const popupConfirmation = () =>{
-                    if(window.confirm(`${produits.name} au prix de ${produits.price / 100} € a bien été ajouté au panier.
-                    Consultez le panier OK ou continuez vos achats ANNULER`)){
-                        window.location.href = "panier.html";
-                    }else{
-                        window.location.href = "acceuil.html";
-                    }
-                }
-                if(panier){                    
-                    if(panier[id]){
-                        panier[id]++;  
-                    }
-                    else{
-                        panier[id] = 1;
-                    }
-                    // panier.push(optionProduit);
-                    localStorage.setItem("produit", JSON.stringify(panier));
-                    popupConfirmation();
-                }
-                else{
-                    panier = {};
-                    panier[id] = 1;
-                    localStorage.setItem("produit", JSON.stringify(panier));
-                    popupConfirmation();               
-                }                                 
-            })         
-                //----------- debut du choix-----------
-                
-                let colorSelect = document.getElementById("color-select");
-                description.appendChild(colorSelect);           
-                
-                let optionColors = produits.colors;                
-                
-                for (let j = 0; j < optionColors.length; j++){
-                    let option = document.createElement("option");
-                    option.value = optionColors[j];
-                    option.text = optionColors[j];
-                    colorSelect.appendChild(option);
-
-                // console.log(optionColors[j]);
-                }  
-                affichage.appendChild(card);                
-            
-                })        
-        .catch(function(error)  {
-            alert("Nos nounours ne sont pas encore prets. Revenez plus tard.");        
-        })
-
-     
+        // ------------fenetre de confirmation panier-----------
+        const popupConfirmation = () =>{
+            if(window.confirm(`${produits.name} au prix de ${produits.price / 100} € a bien été ajouté au panier.
+            Consultez le panier OK ou continuez vos achats ANNULER`)){
+                window.location.href = "panier.html";
+            }else{
+                window.location.href = "acceuil.html";
+            }
+        }
+        if(panier){                    
+            if(panier[id]){
+                panier[id]++;  
+            }
+            else{
+                panier[id] = 1;
+            }
+            // panier.push(optionProduit);
+            localStorage.setItem("produit", JSON.stringify(panier));
+            popupConfirmation();
+        }
+        else{
+            panier = {};
+            panier[id] = 1;
+            localStorage.setItem("produit", JSON.stringify(panier));
+            popupConfirmation();               
+        }                                 
+    })         
+    //----------- debut du choix---------                
+    let colorSelect = document.getElementById("color-select");
+    description.appendChild(colorSelect);               
+    let optionColors = produits.colors;               
+    for (let j = 0; j < optionColors.length; j++){
+        let option = document.createElement("option");
+        option.value = optionColors[j];
+        option.text = optionColors[j];
+        colorSelect.appendChild(option);
+    }  
+    affichage.appendChild(card);            
+})        
+.catch(function(error)  {
+    alert("Nos nounours ne sont pas encore prets. Revenez plus tard.");        
+})     
