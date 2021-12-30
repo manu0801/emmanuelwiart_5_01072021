@@ -10,7 +10,7 @@ fetch(`http://localhost:3000/api/teddies/${id}`)
 
     let affichage = document.querySelector('#ficheProduit');
 
-    let card = create_div("col-12 col-lg-6");
+    let card = create_div("col-12 col-lg-5");
     
     let container = create_div("row p5");                
     container.appendChild(card);        
@@ -50,7 +50,7 @@ fetch(`http://localhost:3000/api/teddies/${id}`)
 
         let panier = JSON.parse(localStorage.getItem("produit"));
                 
-        // ------------fenetre de confirmation panier-----------
+        // ------------pop up confirmation-----------
         const popupConfirmation = () =>{
             if(window.confirm(`${produits.name} au prix de ${produits.price / 100} € a bien été ajouté au panier.
             Consultez le panier OK ou continuez vos achats ANNULER`)){
@@ -77,7 +77,7 @@ fetch(`http://localhost:3000/api/teddies/${id}`)
             popupConfirmation();               
         }                                 
     })         
-    //----------- debut du choix---------                
+    //----------- color choice---------                
     let colorSelect = document.getElementById("color-select");
     description.appendChild(colorSelect);               
     let optionColors = produits.colors;               

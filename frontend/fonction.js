@@ -1,9 +1,9 @@
-// fonction des calcul des prix
+// price calculation function
 function calculate(){
     let lines = get_lines();
     var total = 0;
     for (tr of lines){
-        // sous-total
+        // subtotal
         let qtt = get_line_qtt(tr);
         let price = get_line_price(tr);
         let sous_total = qtt * price;
@@ -28,110 +28,110 @@ function print_sub_total(tr, sous_total){
 function print_total(total){
     document.querySelector("tfoot #total").innerHTML = total + "€";
 }
-//------fonction des boutons ajouter supprimer
-function ajouter(){
-    // se declenche lors du click => ok
-    // prends l'id du produit selectionné
+//------function of the increment and decrement button
+function checkOutIncrementProduct(){
+    // triggered on click
+    // takes the ID of the selected product
     let id = this.closest("tr").className;       
-    // recuperer la quantite de l'id du produits dans le ls
+    // retrieve the quantity of the product id in the ls
     let p = JSON.parse(localStorage.getItem("produit"));    
-    // modifier la quantite de cet id
+    // modify the quantity of this id
     p[id]++;    
-    // mettre a jour le LS
+    // update LS
     localStorage.setItem("produit", JSON.stringify(p));
-    // mettre a jour la quantité dans la ligne du tableau
+    // update the quantity in the table row
     let quantite = this.closest("tr").querySelector(".quantite");
     quantite.innerHTML = p[id];
-    // recalculer
+    // recalculate
     calculate();    
 }
-function supprimer() {
-    // se declenche lors du click => ok
-    // prends l'id du produit selectionné
+function checkOutDecrementProduct() {
+    // triggered on click
+    // takes the ID of the selected product
     let id = this.closest("tr").className; 
-    // recuperer la quantite de l'id du produits dans le ls
+    // retrieve the quantity of the product id in the ls
     let p = JSON.parse(localStorage.getItem("produit"));     
-    // modifier la quantite de cet id
+    // modify the quantity of this id
     p[id]--;    
-    // verifier la quantité du LS et si qte a 0 supprimer l'id
+    // check the quantity of LS and if it is 0 delete the id
     if(p[id]==0){
-        // enlever element id du p
+        // remove element id from p
         delete p[id];
         localStorage.setItem("produit", JSON.stringify(p));        
-        // enlever l'affichage de la ligne du tableau
+        // remove display from table row
         this.closest("tr").remove();
         calculate();
     }
     else{
-       // mettre a jour le LS
+       // update LS
     localStorage.setItem("produit", JSON.stringify(p));
-    // mettre a jour la quantité dans la ligne du tableau
+    // update the quantity in the table row
     let quantite = this.closest("tr").querySelector(".quantite");
     quantite.innerHTML = p[id];
-    // recalculer
+    // recalculate
     calculate();
     }
 }
-// -----fonctions de création du tableau panier
-function createTable(){
+// -----basket table creation functions
+function createBasketTable(){
     let container = create_div("row p-5");
 
-    let tableau = create_tableau("table table-dark table-striped");
-    container.appendChild(tableau);
+    let table = create_tableau("table table-dark table-striped");
+    container.appendChild(table);
 
-    let enTeteTableau = document.createElement("tHead");
-    tableau.appendChild(enTeteTableau);
+    let headTable = create_tHead();
+    table.appendChild(headTable);
     
-    let intitule = document.createElement("tr")
-    enTeteTableau.appendChild(intitule);
+    let entitled = create_tr();
+    headTable.appendChild(entitled);
 
-    let nomDuNounours = create_th("col");
-    nomDuNounours.innerHTML = "Nom du Nounours";
-    intitule.appendChild(nomDuNounours);
+    let productName = create_th("col");
+    productName.innerHTML = "Nom du Nounours";
+    entitled.appendChild(productName);
 
-    let quantite = create_th("col");
-    quantite.innerHTML = "Quantité";
-    intitule.appendChild(quantite);
+    let quantity = create_th("col");
+    quantity.innerHTML = "Quantité";
+    entitled.appendChild(quantity);
 
-    let prixUnitaire = create_th("col");
-    prixUnitaire.innerHTML = "Prix Unitaire";
-    intitule.appendChild(prixUnitaire);
+    let unitPrice = create_th("col");
+    unitPrice.innerHTML = "Prix Unitaire";
+    entitled.appendChild(unitPrice);
 
-    let sousTotal = create_th("col");
-    sousTotal.innerHTML = "Sous Total";
-    intitule.appendChild(sousTotal);
+    let subtotal = create_th("col");
+    subtotal.innerHTML = "Sous Total";
+    entitled.appendChild(subtotal);
 
-    let ajouterSupprimer = create_th("col");
-    ajouterSupprimer.innerHTML = "Ajouter/Supprimer";
-    intitule.appendChild(ajouterSupprimer);
+    let incrementDecrement = create_th("col");
+    incrementDecrement.innerHTML = "Ajouter/Supprimer";
+    entitled.appendChild(incrementDecrement);
 
-    var corpsTableau = create_tbody();
-    tableau.appendChild(corpsTableau);
+    var tableBody = create_tbody();
+    table.appendChild(tableBody);
 }
-function createPiedTableau(){
-    let piedTableau = create_tfoot();
-    tableau.appendChild(piedTableau);
+function createBasketTableStand(){
+    let basketTableStand = create_tfoot();
+    table.appendChild(basketTableStand);
 
-    let ligneTotal = create_tr();
-    piedTableau.appendChild(ligneTotal);        
+    let totalLine = create_tr();
+    basketTableStand.appendChild(totalLine);        
 
-    let caseVide1 = create_th();
-    ligneTotal.appendChild(caseVide1);
+    let emptyBox1 = create_th();
+    totalLine.appendChild(emptyBox1);
 
-    let caseVide2 = create_th();
-    ligneTotal.appendChild(caseVide2);
+    let emptyBox2 = create_th();
+    totalLine.appendChild(emptyBox2);
 
-    let prixTotal = create_th();
-    prixTotal.innerHTML = "Prix Total à payer",
-    ligneTotal.appendChild(prixTotal);
+    let totalPrice = create_th();
+    totalPrice.innerHTML = "Prix Total à payer",
+    ligneTotal.appendChild(totalPrice);
 
-    let resultatPrix = create_th();
-    resultatPrix.setAttribute("id", "total");
-    ligneTotal.appendChild(resultatPrix);
+    let priceResults = create_th();
+    priceResults.setAttribute("id", "total");
+    totalLine.appendChild(priceResults);
 
-    affichage.appendChild(tableau);   
+    affichage.appendChild(table);   
 }
-// ------fonctions de création du formulaire
+// ------form creation functions
 function create_tbody(className){
     let tbody = document.createElement("tbody");
     tbody.className = className;
@@ -222,7 +222,7 @@ function create_label(setAttribute){
     label.setAttribute = setAttribute;
     return label
 }
-function create_form(className){
+function create_form(){
     let form = document.createElement("form");
     return form;
 }
@@ -238,7 +238,7 @@ function createCustomerForm(){
     let hr = create_hr();
     titre.appendChild(hr)
 
-    let h = create_h3();
+    let h = create_h3("text-center");
     h.innerText = "Vos coordonnées";
     titre.appendChild(h);
 
@@ -247,6 +247,7 @@ function createCustomerForm(){
 
     affichage.appendChild(formulaireGlobal); 
 }
+
 function createInputName(){
     let blockName = create_div("row");
     formulaire.appendChild(blockName);
@@ -267,7 +268,7 @@ function createInputName(){
     inputName.setAttribute("required", "");
     inputContainerName.appendChild(inputName);
 }
-function createInputFistname(){
+function createInputFirstname(){
     let blockPrenom = create_div("row");
     formulaire.appendChild(blockPrenom);
 
@@ -380,11 +381,11 @@ function createOrderButton(){
     button.innerText = "Commander";
     blockBtn.appendChild(button);    
 }
-// ------fonction pour envoyer les données à l'API
+// ------send function to API
 function envoyerDonnees(){
-// recuperation du bouton envoyer
+// send button recovery
     const btnEnvoyer = document.querySelector("#btnEnvoyer");    
-// se declenche lors du clik sur commander
+// triggered on click order button
     btnEnvoyer.addEventListener("click", (e)=>{
     e.preventDefault();
     const valeursFormulaire = {
@@ -400,12 +401,12 @@ function envoyerDonnees(){
     for(var key in panier){
         produitsEnvoie.push(key);
     }
-    // mettre les produits du LS et l'objet du formulaire dans un objet a envoyer
+    // put the products of the LS and the object of the form in an object to send
     const aEnvoyer = {        
         contact: valeursFormulaire,
         products: produitsEnvoie,        
     }
-    // ------------envoie--------
+    // ------------send--------
     const options = {
         method: "POST",
         body: JSON.stringify(aEnvoyer),
@@ -422,4 +423,3 @@ function envoyerDonnees(){
     })
 })        
 }
-

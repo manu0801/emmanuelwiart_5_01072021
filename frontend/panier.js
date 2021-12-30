@@ -64,11 +64,9 @@ async function insertionInfos(data){
 }
 var panier = JSON.parse(localStorage.getItem("produit"));
 if(panier === null){
-// console.log("je suis vide");
 } else{
 
 var affichage = document.querySelector("#affichagePanier");
-        // console.log(affichage);
 
 let container = document.createElement("div");
 container.className = "row p-5";
@@ -76,11 +74,9 @@ container.className = "row p-5";
 let tableau = document.createElement("table") ;
 tableau.className = "table table-dark table-striped";
 container.appendChild(tableau);
-// console.log(tableau);
 
 let enTeteTableau = document.createElement("tHead");
 tableau.appendChild(enTeteTableau);
-// console.log(enTeteTableau);
 
 let intitule = document.createElement("tr")
 enTeteTableau.appendChild(intitule);

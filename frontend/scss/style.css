@@ -11524,10 +11524,11 @@ fieldset:disabled .btn {
   padding: 5px;
 }
 
-.form-select {
-  width: 50%;
+.form-control {
+  width: 75%;
   margin-bottom: 15px;
   border-radius: 15px;
+  margin: auto;
 }
 
 .btn-primary {
@@ -11563,5 +11564,9 @@ th {
 
 td {
   text-align: center;
+}
+
+body {
+  background-color: #f3e9f1;
 }
 /*# sourceMappingURL=style.css.map */

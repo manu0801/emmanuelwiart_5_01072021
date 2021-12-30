@@ -26,7 +26,7 @@ fetch('http://localhost:3000/api/teddies')
         let description = create_div("card-body");
         image.appendChild(description);
                 
-        let cardTitle = create_h2("card-title");
+        let cardTitle = create_h3("card-title");
         cardTitle.innerHTML = produits[i].name;
         description.appendChild(cardTitle);
                 

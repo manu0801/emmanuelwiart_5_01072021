@@ -10,9 +10,9 @@ function recuperationInfos(key){
 }
 async function insertionInfos(data){
     let produits = data; 
-    var panier = JSON.parse(localStorage.getItem("produit"));    
-    // fonction de calcul        
+    var panier = JSON.parse(localStorage.getItem("produit")); 
 
+    // fonction de calcul
     document.querySelector("tbody");
             
     let ligneProduit = create_tr(`${produits._id}`);
@@ -38,12 +38,12 @@ async function insertionInfos(data){
             
     let ajout = create_button("btn btn-light");
     ajout.innerHTML = "+1"; 
-    ajout.addEventListener('click', ajouter);           
+    ajout.addEventListener('click', checkOutIncrementProduct);           
     ajoutSuppr.appendChild(ajout); 
             
     let suppr = create_button("btn btn-light");
     suppr.innerHTML = "- 1";
-    suppr.addEventListener('click', supprimer)
+    suppr.addEventListener('click', checkOutDecrementProduct)
     ajoutSuppr.appendChild(suppr); 
             
     calculate();            
@@ -51,15 +51,16 @@ async function insertionInfos(data){
 var panier = JSON.parse(localStorage.getItem("produit"));
 if(panier === null){
     var affichage = document.querySelector("#affichagePanier");
+    affichage.className = "text-center h1"
     affichage.innerHTML = "votre panier est vide"
 } else{
     var affichage = document.querySelector("#affichagePanier");       
-// createTable()
+
+    // createBasketTable();
     let container = create_div("row p-5");
 
     let tableau = create_tableau("table table-dark table-striped");
     container.appendChild(tableau);
-    // console.log(tableau);
 
     let enTeteTableau = create_tHead();
     tableau.appendChild(enTeteTableau);
@@ -93,8 +94,10 @@ if(panier === null){
     for (var key in panier) {        
         recuperationInfos(key);        
     }        
-    //---------pied du tableau panier
-    // createPiedTableau()
+    //---------basket table stand
+
+    // createBasketTableStand();
+
     let piedTableau = create_tfoot();
     tableau.appendChild(piedTableau);
 
@@ -117,23 +120,23 @@ if(panier === null){
 
     affichage.appendChild(tableau);   
 }
-// --------formulaire et bouton commander
+// --------form and order button
 var affichage = document.querySelector("#formulaire");
- // formulaire client
+ // customer form
 createCustomerForm()   
-// input nom
+// input name
 createInputName() 
-// input prenom
-createInputFistname() 
-// input adresse
+// input firstname
+createInputFirstname() 
+// input adress
 createInputAdress()
-// input code postal
+// input zip code
 createInputZipcode()
-// input ville
+// input city
 createInputCity() 
 // input email
 createInputMail() 
-// bouton
+// button
 createOrderButton()   
-// fonction d'envoi à l'API
+// send function to API
 envoyerDonnees()
