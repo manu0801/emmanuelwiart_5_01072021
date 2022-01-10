@@ -107,8 +107,9 @@ function createBasketTable(){
 
     var tableBody = create_tbody();
     table.appendChild(tableBody);
+    return table;
 }
-function createBasketTableStand(){
+function createBasketTableStand(table){
     let basketTableStand = create_tfoot();
     table.appendChild(basketTableStand);
 
@@ -123,7 +124,7 @@ function createBasketTableStand(){
 
     let totalPrice = create_th();
     totalPrice.innerHTML = "Prix Total à payer",
-    ligneTotal.appendChild(totalPrice);
+    totalLine.appendChild(totalPrice);
 
     let priceResults = create_th();
     priceResults.setAttribute("id", "total");
@@ -217,11 +218,7 @@ function create_th(scope) {
     th.scope = scope;
     return th;
 }
-function create_label(setAttribute){
-    let label = document.createElement("label");
-    label.setAttribute = setAttribute;
-    return label
-}
+
 function create_form(){
     let form = document.createElement("form");
     return form;
@@ -243,12 +240,14 @@ function createCustomerForm(){
     titre.appendChild(h);
 
     let formulaire = create_form();
-    containerFormulaire.appendChild(formulaire);
+    titre.appendChild(formulaire);
 
-    affichage.appendChild(formulaireGlobal); 
+    affichage.appendChild(formulaireGlobal);
+    
+    return formulaire;
 }
 
-function createInputName(){
+function createInputName(formulaire){
     let blockName = create_div("row");
     formulaire.appendChild(blockName);
 
@@ -256,10 +255,7 @@ function createInputName(){
     blockName.appendChild(colName);
 
     let inputContainerName = create_div("form-group");
-    colName.appendChild(inputContainerName);
-
-    let labelName = create_label("for", "name");    
-    inputContainerName.appendChild(labelName);
+    colName.appendChild(inputContainerName);    
 
     let inputName = create_input("form-control");
     inputName.setAttribute("type", "text");
@@ -268,7 +264,7 @@ function createInputName(){
     inputName.setAttribute("required", "");
     inputContainerName.appendChild(inputName);
 }
-function createInputFirstname(){
+function createInputFirstname(formulaire){
     let blockPrenom = create_div("row");
     formulaire.appendChild(blockPrenom);
 
@@ -276,10 +272,7 @@ function createInputFirstname(){
     blockPrenom.appendChild(colPrenom);
 
     let inputContainerPrenom = create_div("form-group");
-    colPrenom.appendChild(inputContainerPrenom);
-
-    let labelPrenom = create_label("for", "fistname");
-    inputContainerPrenom.appendChild(labelPrenom);
+    colPrenom.appendChild(inputContainerPrenom);    
 
     let inputFirstName = create_input("form-control");
     inputFirstName.setAttribute("type", "text");
@@ -288,7 +281,7 @@ function createInputFirstname(){
     inputFirstName.setAttribute("required", "");
     inputContainerPrenom.appendChild(inputFirstName);
 }
-function createInputAdress(){
+function createInputAdress(formulaire){
     let blockAdresse = create_div("row");
     formulaire.appendChild(blockAdresse);
 
@@ -296,10 +289,7 @@ function createInputAdress(){
     blockAdresse.appendChild(colAdresse);
 
     let inputContainerAdresse = create_div("form-group");
-    colAdresse.appendChild(inputContainerAdresse);
-
-    let labelAdresse = create_label("for", "adress");
-    inputContainerAdresse.appendChild(labelAdresse);
+    colAdresse.appendChild(inputContainerAdresse);    
 
     let inputAdresse = create_input("form-control") ;
     inputAdresse.setAttribute("type", "text");
@@ -308,7 +298,7 @@ function createInputAdress(){
     inputAdresse.setAttribute("required", "");
     inputContainerAdresse.appendChild(inputAdresse);
 }
-function createInputZipcode(){
+function createInputZipcode(formulaire){
     let blockZipcode = create_div("row");
     formulaire.appendChild(blockZipcode);
 
@@ -316,10 +306,7 @@ function createInputZipcode(){
     blockZipcode.appendChild(colZipcode);
 
     let inputContainerZipcode = create_div("form-group");
-    colZipcode.appendChild(inputContainerZipcode);
-
-    let labelZipcode = create_label("for", "zipcode");
-    inputContainerZipcode.appendChild(labelZipcode);
+    colZipcode.appendChild(inputContainerZipcode);    
 
     let inputZipcode = create_input("form-control");
     inputZipcode.setAttribute("type", "text");
@@ -328,7 +315,7 @@ function createInputZipcode(){
     inputZipcode.setAttribute("required", "");
     inputContainerZipcode.appendChild(inputZipcode);
 }
-function createInputCity(){
+function createInputCity(formulaire){
     let blockVille = create_div("row");
     formulaire.appendChild(blockVille);
 
@@ -336,10 +323,7 @@ function createInputCity(){
     blockVille.appendChild(colVille);
 
     let inputContainerVille = create_div("form-group");
-    colVille.appendChild(inputContainerVille);
-
-    let labelVille = create_label("for", "city");
-    inputContainerVille.appendChild(labelVille);
+    colVille.appendChild(inputContainerVille);    
 
     let inputVille = create_input("form-control");
     inputVille.setAttribute("type", "text");
@@ -348,7 +332,7 @@ function createInputCity(){
     inputVille.setAttribute("required", "");
     inputContainerVille.appendChild(inputVille);
 }
-function createInputMail(){
+function createInputMail(formulaire){
     let blockEmail = create_div("row");
     formulaire.appendChild(blockEmail);
 
@@ -356,10 +340,7 @@ function createInputMail(){
     blockEmail.appendChild(colEmail);
 
     let inputContainerEmail = create_div("form-group");
-    colEmail.appendChild(inputContainerEmail);
-
-    let labelEmail = create_label("for", "emailadress");
-    inputContainerEmail.appendChild(labelEmail);
+    colEmail.appendChild(inputContainerEmail);    
 
     let inputEmail = create_input("form-control");
     inputEmail.setAttribute("type", "text");
@@ -368,7 +349,7 @@ function createInputMail(){
     inputEmail.setAttribute("required", "");
     inputContainerEmail.appendChild(inputEmail);
 }
-function createOrderButton(){
+function createOrderButton(formulaire){
     let blockBtn = create_div("row mt-5");
     formulaire.appendChild(blockBtn);
 

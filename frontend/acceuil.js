@@ -3,8 +3,8 @@ fetch('http://localhost:3000/api/teddies')
     return res.json()            
 })         
 .then( function(data){ 
-    let produits = data;
-    let affichage = document.querySelector('#injectHere');
+    let products = data;
+    let display = document.querySelector('#injectHere');
 
     for (let i = 0; i < 5; i++) {            
         let card = create_div("col-12 col-lg-4");
@@ -15,11 +15,11 @@ fetch('http://localhost:3000/api/teddies')
         card.appendChild(image);
     
         let link = create_a("stretched-link");
-        link.href = `produits.html?id=${produits[i]._id}`;
+        link.href = `produits.html?id=${products[i]._id}`;
         image.appendChild(link);  
     
         let img = create_img("card-img-top");
-        img.src = produits[i].imageUrl;
+        img.src = products[i].imageUrl;
         img.alt = "teddies";
         image.appendChild(img);
                 
@@ -27,20 +27,20 @@ fetch('http://localhost:3000/api/teddies')
         image.appendChild(description);
                 
         let cardTitle = create_h3("card-title");
-        cardTitle.innerHTML = produits[i].name;
+        cardTitle.innerHTML = products[i].name;
         description.appendChild(cardTitle);
                 
         let cardPrice = create_h4("price");
-        produits[i].price = produits[i].price / 100;
+        products[i].price = products[i].price / 100;
         cardPrice.innerHTML = new Intl.NumberFormat("fr-FR", {style: "currency", currency: "EUR"})
-        .format(produits[i].price);
+        .format (products[i].price);
         description.appendChild(cardPrice);
                 
         let cardContent = create_p("card-text");
         cardContent.innerHTML = "Disponible en différentes versions.....<br>Cliquez pour plus d'information";
         description.appendChild(cardContent);
 
-        affichage.appendChild(card);   
+        display.appendChild(card);   
     }
 })        
 .catch(function(error)  {

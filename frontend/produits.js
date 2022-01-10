@@ -6,9 +6,9 @@ fetch(`http://localhost:3000/api/teddies/${id}`)
     return res.json()            
 })         
 .then( function(data){ 
-    let produits = data;
+    let products = data;
 
-    let affichage = document.querySelector('#ficheProduit');
+    let display = document.querySelector('#ficheProduit');
 
     let card = create_div("col-12 col-lg-5");
     
@@ -22,7 +22,7 @@ fetch(`http://localhost:3000/api/teddies/${id}`)
     image.appendChild(containerImg);
 
     let img = create_img("imgProduit");
-    img.src = `${produits.imageUrl}`;
+    img.src = `${products.imageUrl}`;
     img.alt = "teddies";
     containerImg.appendChild(img);
 
@@ -30,15 +30,15 @@ fetch(`http://localhost:3000/api/teddies/${id}`)
     image.appendChild(description);
 
     let cardTitle = create_h2("card-title");
-    cardTitle.innerHTML = `${produits.name}`;
+    cardTitle.innerHTML = `${products.name}`;
     description.appendChild(cardTitle);
 
     let cardContent = create_p("card-text")
-    cardContent.innerHTML = `${produits.description}`;
+    cardContent.innerHTML = `${products.description}`;
     description.appendChild(cardContent);
 
     let cardPrice = create_h3("price");                
-    cardPrice.innerHTML = `${produits.price / 100}€`;                                
+    cardPrice.innerHTML = `${products.price / 100}€`;                                
     description.appendChild(cardPrice); 
 
     let link = create_input("btn btn-primary");                
@@ -48,46 +48,46 @@ fetch(`http://localhost:3000/api/teddies/${id}`)
 
     link.addEventListener("click", function(){
 
-        let panier = JSON.parse(localStorage.getItem("produit"));
+        let basket = JSON.parse(localStorage.getItem("produit"));
                 
         // ------------pop up confirmation-----------
         const popupConfirmation = () =>{
-            if(window.confirm(`${produits.name} au prix de ${produits.price / 100} € a bien été ajouté au panier.
+            if(window.confirm(`${products.name} au prix de ${products.price / 100} € a bien été ajouté au panier.
             Consultez le panier OK ou continuez vos achats ANNULER`)){
                 window.location.href = "panier.html";
             }else{
                 window.location.href = "acceuil.html";
             }
         }
-        if(panier){                    
-            if(panier[id]){
-                panier[id]++;  
+        if(basket){                    
+            if(basket[id]){
+                basket[id]++;  
             }
             else{
-                panier[id] = 1;
+                basket[id] = 1;
             }
             // panier.push(optionProduit);
-            localStorage.setItem("produit", JSON.stringify(panier));
+            localStorage.setItem("produit", JSON.stringify(basket));
             popupConfirmation();
         }
         else{
-            panier = {};
-            panier[id] = 1;
-            localStorage.setItem("produit", JSON.stringify(panier));
+            basket = {};
+            basket[id] = 1;
+            localStorage.setItem("produit", JSON.stringify(basket));
             popupConfirmation();               
         }                                 
     })         
     //----------- color choice---------                
     let colorSelect = document.getElementById("color-select");
     description.appendChild(colorSelect);               
-    let optionColors = produits.colors;               
+    let optionColors = products.colors;               
     for (let j = 0; j < optionColors.length; j++){
         let option = document.createElement("option");
         option.value = optionColors[j];
         option.text = optionColors[j];
         colorSelect.appendChild(option);
     }  
-    affichage.appendChild(card);            
+    display.appendChild(card);            
 })        
 .catch(function(error)  {
     alert("Nos nounours ne sont pas encore prets. Revenez plus tard.");        

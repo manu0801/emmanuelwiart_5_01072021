@@ -9,134 +9,80 @@ function recuperationInfos(key){
     })
 }
 async function insertionInfos(data){
-    let produits = data; 
-    var panier = JSON.parse(localStorage.getItem("produit")); 
+    let products = data; 
+    var basket = JSON.parse(localStorage.getItem("produit")); 
 
     // fonction de calcul
-    document.querySelector("tbody");
+    
+    let tableBody = document.querySelector("tbody");
             
-    let ligneProduit = create_tr(`${produits._id}`);
-    corpsTableau.appendChild(ligneProduit);            
+    let productLine = create_tr(`${products._id}`);
+    tableBody.appendChild(productLine);            
 
-    let nom = create_td("nom");
-    nom.innerHTML = `${produits.name}`;
-    ligneProduit.appendChild(nom);
+    let name = create_td("nom");
+    name.innerHTML = `${products.name}`;
+    productLine.appendChild(name);
 
-    let quantiteProduit = create_td("quantite");
-    quantiteProduit.innerHTML = `${panier[produits._id]}`;
-    ligneProduit.appendChild(quantiteProduit);
+    let productQuantity = create_td("quantite");
+    productQuantity.innerHTML = `${basket[products._id]}`;
+    productLine.appendChild(productQuantity);
 
     let pu = create_td("pu");
-    pu.innerHTML = `${produits.price / 100}€`;
-    ligneProduit.appendChild(pu);
+    pu.innerHTML = `${products.price / 100}€`;
+    productLine.appendChild(pu);
 
     let pt = create_td("pt"); 
-    ligneProduit.appendChild(pt);
+    productLine.appendChild(pt);
 
-    let ajoutSuppr = create_td("ajoutSuppr");
-    ligneProduit.appendChild(ajoutSuppr); 
+    let incrementDecrement = create_td("ajoutSuppr");
+    productLine.appendChild(incrementDecrement); 
             
-    let ajout = create_button("btn btn-light");
-    ajout.innerHTML = "+1"; 
-    ajout.addEventListener('click', checkOutIncrementProduct);           
-    ajoutSuppr.appendChild(ajout); 
+    let incremente = create_button("btn btn-light");
+    incremente.innerHTML = "+1"; 
+    incremente.addEventListener('click', checkOutIncrementProduct);           
+    incrementDecrement.appendChild(incremente); 
             
-    let suppr = create_button("btn btn-light");
-    suppr.innerHTML = "- 1";
-    suppr.addEventListener('click', checkOutDecrementProduct)
-    ajoutSuppr.appendChild(suppr); 
+    let decremente = create_button("btn btn-light");
+    decremente.innerHTML = "- 1";
+    decremente.addEventListener('click', checkOutDecrementProduct)
+    incrementDecrement.appendChild(decremente); 
             
     calculate();            
 }
-var panier = JSON.parse(localStorage.getItem("produit"));
-if(panier === null){
-    var affichage = document.querySelector("#affichagePanier");
-    affichage.className = "text-center h1"
-    affichage.innerHTML = "votre panier est vide"
+var basket = JSON.parse(localStorage.getItem("produit"));
+if(basket === null){
+    var display = document.querySelector("#affichagePanier");
+    display.className = "text-center h1"
+    display.innerHTML = "votre panier est vide"
 } else{
-    var affichage = document.querySelector("#affichagePanier");       
+    var affichage = document.querySelector("#affichagePanier");
 
-    // createBasketTable();
-    let container = create_div("row p-5");
-
-    let tableau = create_tableau("table table-dark table-striped");
-    container.appendChild(tableau);
-
-    let enTeteTableau = create_tHead();
-    tableau.appendChild(enTeteTableau);
+    var table = createBasketTable();    
     
-    let intitule = create_tr();
-    enTeteTableau.appendChild(intitule);
-
-    let nomDuNounours = create_th("col");
-    nomDuNounours.innerHTML = "Nom du Nounours";
-    intitule.appendChild(nomDuNounours);
-
-    let quantite = create_th("col");
-    quantite.innerHTML = "Quantité";
-    intitule.appendChild(quantite);
-
-    let prixUnitaire = create_th("col");
-    prixUnitaire.innerHTML = "Prix Unitaire";
-    intitule.appendChild(prixUnitaire);
-
-    let sousTotal = create_th("col");
-    sousTotal.innerHTML = "Sous Total";
-    intitule.appendChild(sousTotal);
-
-    let ajouterSupprimer = create_th("col");
-    ajouterSupprimer.innerHTML = "Ajouter/Supprimer";
-    intitule.appendChild(ajouterSupprimer);
-
-    var corpsTableau = create_tbody();
-    tableau.appendChild(corpsTableau);        
-    
-    for (var key in panier) {        
+    for (var key in basket) {        
         recuperationInfos(key);        
     }        
-    //---------basket table stand
-
-    // createBasketTableStand();
-
-    let piedTableau = create_tfoot();
-    tableau.appendChild(piedTableau);
-
-    let ligneTotal = create_tr();
-    piedTableau.appendChild(ligneTotal);        
-
-    let caseVide1 = create_th();
-    ligneTotal.appendChild(caseVide1);
-
-    let caseVide2 = create_th();
-    ligneTotal.appendChild(caseVide2);
-
-    let prixTotal = create_th();
-    prixTotal.innerHTML = "Prix Total à payer",
-    ligneTotal.appendChild(prixTotal);
-
-    let resultatPrix = create_th();
-    resultatPrix.setAttribute("id", "total");
-    ligneTotal.appendChild(resultatPrix);
-
-    affichage.appendChild(tableau);   
+    
+    createBasketTableStand(table);    
 }
 // --------form and order button
-var affichage = document.querySelector("#formulaire");
+var display = document.querySelector("#formulaire");
  // customer form
-createCustomerForm()   
+
+var form = createCustomerForm()   
 // input name
-createInputName() 
+createInputName(form) 
 // input firstname
-createInputFirstname() 
+createInputFirstname(form) 
 // input adress
-createInputAdress()
+createInputAdress(form)
 // input zip code
-createInputZipcode()
+createInputZipcode(form)
 // input city
-createInputCity() 
+createInputCity(form) 
 // input email
-createInputMail() 
+createInputMail(form) 
 // button
-createOrderButton()   
+createOrderButton(form)   
 // send function to API
 envoyerDonnees()
