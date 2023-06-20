@@ -226,10 +226,10 @@ function create_form(){
 function createCustomerForm(){
     let formulaireGlobal = create_div("container");
 
-    let containerFormulaire = create_div("row p-5");
+    let containerFormulaire = create_div("row");
     formulaireGlobal.appendChild(containerFormulaire);
     
-    let titre = create_div("col");
+    let titre = create_div("col-12");
     containerFormulaire.appendChild(titre);
 
     let hr = create_hr();
@@ -255,11 +255,11 @@ function createInputName(formulaire){
     blockName.appendChild(colName);
 
     let inputContainerName = create_div("form-group");
-    colName.appendChild(inputContainerName);    
+    colName.appendChild(inputContainerName);   
 
     let inputName = create_input("form-control");
     inputName.setAttribute("type", "text");
-    inputName.setAttribute("placeholder", "Nom");
+    inputName.setAttribute("placeholder", "nom");
     inputName.setAttribute("id", "name");
     inputName.setAttribute("required", "");
     inputContainerName.appendChild(inputName);
@@ -272,7 +272,7 @@ function createInputFirstname(formulaire){
     blockPrenom.appendChild(colPrenom);
 
     let inputContainerPrenom = create_div("form-group");
-    colPrenom.appendChild(inputContainerPrenom);    
+    colPrenom.appendChild(inputContainerPrenom);     
 
     let inputFirstName = create_input("form-control");
     inputFirstName.setAttribute("type", "text");
@@ -280,6 +280,7 @@ function createInputFirstname(formulaire){
     inputFirstName.setAttribute("id", "firstname");
     inputFirstName.setAttribute("required", "");
     inputContainerPrenom.appendChild(inputFirstName);
+
 }
 function createInputAdress(formulaire){
     let blockAdresse = create_div("row");
@@ -320,7 +321,7 @@ function createInputCity(formulaire){
     formulaire.appendChild(blockVille);
 
     let colVille = create_div("col");
-    blockVille.appendChild(colVille);
+    blockVille.appendChild(colVille);    
 
     let inputContainerVille = create_div("form-group");
     colVille.appendChild(inputContainerVille);    
@@ -343,7 +344,7 @@ function createInputMail(formulaire){
     colEmail.appendChild(inputContainerEmail);    
 
     let inputEmail = create_input("form-control");
-    inputEmail.setAttribute("type", "text");
+    inputEmail.setAttribute("type", "email");
     inputEmail.setAttribute("placeholder", "Adresse Mail");
     inputEmail.setAttribute("id", "emailadress");
     inputEmail.setAttribute("required", "");
@@ -362,45 +363,66 @@ function createOrderButton(formulaire){
     button.innerText = "Commander";
     blockBtn.appendChild(button);    
 }
+const regexName = /^(([a-zA-ZÀ-ÿ]+[\s\-]{1}[a-zA-ZÀ-ÿ]+)|([a-zA-ZÀ-ÿ]+))$/;
+const regexCity = /^(([a-zA-ZÀ-ÿ]+[\s\-]{1}[a-zA-ZÀ-ÿ]+)|([a-zA-ZÀ-ÿ]+)){1,10}$/;
+const regexMail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-z]{2,4}$/;
+const regexAddress = /^(([a-zA-ZÀ-ÿ0-9]+[\s\-]{1}[a-zA-ZÀ-ÿ0-9]+)){1,10}$/;
+const regexZipCode = /^[0-9]{5}$/;
+
 // ------send function to API
 function envoyerDonnees(){
 // send button recovery
     const btnEnvoyer = document.querySelector("#btnEnvoyer");    
 // triggered on click order button
     btnEnvoyer.addEventListener("click", (e)=>{
-    e.preventDefault();
-    const valeursFormulaire = {
-        lastName : document.querySelector("#name").value,
-        firstName : document.querySelector("#firstname").value,
-        address : document.querySelector("#adress").value,
-        city : document.querySelector("#city").value,
-        email : document.querySelector("#emailadress").value,       
-    }
-    localStorage.setItem("valeursFormulaire", JSON.stringify(valeursFormulaire));
-    let produitsEnvoie = [];
-    var panier = JSON.parse(localStorage.getItem("produit"));
-    for(var key in panier){
-        produitsEnvoie.push(key);
-    }
-    // put the products of the LS and the object of the form in an object to send
-    const aEnvoyer = {        
-        contact: valeursFormulaire,
-        products: produitsEnvoie,        
-    }
-    // ------------send--------
-    const options = {
-        method: "POST",
-        body: JSON.stringify(aEnvoyer),
-        headers: {
-            "content-Type" : "application/json"
-        } 
-    };
-    fetch("http://localhost:3000/api/teddies/order", options)
-    .then((response) => response.json())
-    .then((data) => {
-        localStorage.clear();
-        localStorage.setItem("orderId", data.orderId);
-        document.location.href = "confirmation.html";
-    })
-})        
+        e.preventDefault();
+        const valeursFormulaire = {
+            lastName : document.querySelector("#name").value,
+            firstName : document.querySelector("#firstname").value,
+            address : document.querySelector("#adress").value,
+            city : document.querySelector("#city").value,
+            zipCode : document.querySelector("#zipcode").value,
+            email : document.querySelector("#emailadress").value,       
+        }
+        localStorage.setItem("valeursFormulaire", JSON.stringify(valeursFormulaire));
+        let produitsEnvoie = [];
+        var panier = JSON.parse(localStorage.getItem("produit"));
+        for(var key in panier){
+            produitsEnvoie.push(key);
+        }
+        // put the products of the LS and the object of the form in an object to send
+        const aEnvoyer = {        
+            contact: valeursFormulaire,
+            products: produitsEnvoie,        
+        };
+        if (
+            (regexMail.test(valeursFormulaire.email) == true) &&
+            (regexName.test(valeursFormulaire.firstName) == true) &&
+            (regexName.test(valeursFormulaire.lastName) == true) &&
+            (regexCity.test(valeursFormulaire.city) == true) &&
+            (regexZipCode.test(valeursFormulaire.zipCode) == true) &&
+            (regexAddress.test(valeursFormulaire.address) == true) 
+        ) {
+            console.log(true)
+            const options = {
+                method: "POST",
+                body: JSON.stringify(aEnvoyer),
+                headers: {
+                    "content-Type" : "application/json"
+                } 
+            };
+            fetch("http://localhost:3000/api/teddies/order", options)
+            .then((response) => response.json())
+            .then((data) => {
+                localStorage.clear();
+                localStorage.setItem("orderId", data.orderId);
+                document.location.href = "confirmation.html";
+            })
+        } else {
+            console.log(false)
+            alert(
+                "Veuillez correctement renseigner l'entièreté du formulaire pour valider votre commande."
+            );
+        }
+    })        
 }
