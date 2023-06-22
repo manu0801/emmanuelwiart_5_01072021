@@ -12,7 +12,7 @@ async function insertionInfos(data){
     let products = data; 
     var basket = JSON.parse(localStorage.getItem("produit")); 
 
-    // fonction de calcul
+    // creation of the basket display table and insertion of the calculation functions
     
     let tableBody = document.querySelector("tbody");
             

@@ -219,6 +219,7 @@ function create_th(scope) {
     return th;
 }
 
+// creation of the form
 function create_form(){
     let form = document.createElement("form");
     return form;
@@ -247,6 +248,7 @@ function createCustomerForm(){
     return formulaire;
 }
 
+//input creation
 function createInputName(formulaire){
     let blockName = create_div("row");
     formulaire.appendChild(blockName);
@@ -280,7 +282,6 @@ function createInputFirstname(formulaire){
     inputFirstName.setAttribute("id", "firstname");
     inputFirstName.setAttribute("required", "");
     inputContainerPrenom.appendChild(inputFirstName);
-
 }
 function createInputAdress(formulaire){
     let blockAdresse = create_div("row");
@@ -363,6 +364,8 @@ function createOrderButton(formulaire){
     button.innerText = "Commander";
     blockBtn.appendChild(button);    
 }
+
+//setting up regex
 const regexName = /^(([a-zA-ZÀ-ÿ]+[\s\-]{1}[a-zA-ZÀ-ÿ]+)|([a-zA-ZÀ-ÿ]+))$/;
 const regexCity = /^(([a-zA-ZÀ-ÿ]+[\s\-]{1}[a-zA-ZÀ-ÿ]+)|([a-zA-ZÀ-ÿ]+)){1,10}$/;
 const regexMail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-z]{2,4}$/;
@@ -395,6 +398,8 @@ function envoyerDonnees(){
             contact: valeursFormulaire,
             products: produitsEnvoie,        
         };
+
+        //if valid form
         if (
             (regexMail.test(valeursFormulaire.email) == true) &&
             (regexName.test(valeursFormulaire.firstName) == true) &&
@@ -403,7 +408,7 @@ function envoyerDonnees(){
             (regexZipCode.test(valeursFormulaire.zipCode) == true) &&
             (regexAddress.test(valeursFormulaire.address) == true) 
         ) {
-            console.log(true)
+            //post method to send data to API
             const options = {
                 method: "POST",
                 body: JSON.stringify(aEnvoyer),
@@ -411,6 +416,8 @@ function envoyerDonnees(){
                     "content-Type" : "application/json"
                 } 
             };
+
+            //fetch method for order number retrieval
             fetch("http://localhost:3000/api/teddies/order", options)
             .then((response) => response.json())
             .then((data) => {
@@ -418,8 +425,9 @@ function envoyerDonnees(){
                 localStorage.setItem("orderId", data.orderId);
                 document.location.href = "confirmation.html";
             })
+
+            //if invalid form
         } else {
-            console.log(false)
             alert(
                 "Veuillez correctement renseigner l'entièreté du formulaire pour valider votre commande."
             );
