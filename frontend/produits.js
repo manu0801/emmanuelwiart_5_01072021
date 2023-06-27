@@ -56,7 +56,7 @@ fetch(`http://localhost:3000/api/teddies/${id}`)
             Consultez le panier OK ou continuez vos achats ANNULER`)){
                 window.location.href = "panier.html";
             }else{
-                window.location.href = "acceuil.html";
+                window.location.href = "index.html";
             }
         }
         if(basket){                    

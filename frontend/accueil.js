@@ -6,7 +6,7 @@ fetch('http://localhost:3000/api/teddies')
     let products = data;
     let display = document.querySelector('#injectHere');
 
-    for (let i = 0; i < 5; i++) {            
+    for (let i = 0; i < products.length; i++) {            
         let card = create_div("col-12 col-lg-4");
         let container = create_div("row py-3 px-5");                
         container.appendChild(card);
